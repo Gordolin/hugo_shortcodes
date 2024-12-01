@@ -1,0 +1,13 @@
+<img 
+class="my-img-{{.Get "allign"}}" 
+src="{{.Get "src"}}" 
+alt="{{.Get "alt"}}" 
+title="{{.Get "title"}}" 
+style="
+    width:{{.Get "width"}};
+    border-radius: {{.Get "radius"}};
+" >
+
+{{ if  eq (.Get "allign") "col" }}
+<hr />
+{{ end }}

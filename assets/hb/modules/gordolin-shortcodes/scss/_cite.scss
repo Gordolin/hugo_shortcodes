@@ -1,0 +1,23 @@
+.my-initiale-text {
+    @extend .lh-base; //line height
+    @extend .mx-4; //maring left and right
+    @extend .border; //border
+    @extend .border-primary; //border color
+    @extend .rounded; //rounded corners
+    @extend .p-3; //padding
+    @extend .my-2; //margin top and bottom
+    @extend .bg-light; //background color
+    @extend .text-body; //text color
+}
+
+.my-initiale {
+    @extend .fw-bold; //font weight
+    @extend .float-start; //float left
+    @extend .me-2; //margin right
+    @extend .text-primary; //text color
+    font-size: 4em; //big font
+    line-height: 1; //Prevents additional spacing caused by line height
+    height: 0.8em; //Sets the height of the container
+    overflow: hidden; //cuts everything off that lies outside the container
+    display: block; //displays the element as a block
+}
