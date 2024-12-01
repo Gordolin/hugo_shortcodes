@@ -1,0 +1,14 @@
+.my-button {
+    @extend  .text-bg-primary; //text background color
+    @extend .rounded-3; //rounded corners
+    @extend .py-2; //padding top and bottom
+    @extend .px-5; //padding left and right
+    @extend .fs-4; //font size
+
+    color: #cccccc !important;
+    cursor: pointer;
+  }
+  .my-button:hover {
+     color: white !important;
+  }
+  
