@@ -1,0 +1,22 @@
+//style für accordion
+.my-acc-det {
+    @extend .p-0; //padding 0
+    @extend .text-primary; //text color
+    box-sizing: border-box;
+}
+
+.my-acc-sum {
+    @extend .py-2; //padding top and bottom
+    @extend .px-3; //padding left and right
+    @extend .border-bottom; //border bottom
+    @extend .border-2; //border width
+    @extend .rounded-2; //border rounded corners
+    background-color: whitesmoke;
+}
+
+.my-acc-cont {
+   @extend .m-0; //margin 0
+   @extend .py-2; //padding top and bottom
+   @extend .px-3; //padding left and right
+   @extend .text-body; //text color
+}
