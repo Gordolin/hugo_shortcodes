@@ -1,0 +1,35 @@
+<!-- darf nicht zusammen mit dem Todo - Shortcode auf der selben Seite verwendet werden, sonst entsteht eine Schleife -->
+{{ if (or hugo.IsServer .Site.Params.listTodo) }}
+    {{ .Scratch.Set "todos" slice }}
+    {{ range .Site.RegularPages }}
+            {{ if .HasShortcode "todo" }}
+            {{ $.Scratch.Add "todos" . }}
+            {{ end }}
+    {{ end }}
+    <h2 id="todos">Offene TODOs</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Änderungsdatum</th>
+                <th>Dokumenttitel</th>
+                <th>TODO - Bemerkung</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range  (.Scratch.Get "todos") }}
+                <tr>
+                    <td>{{ .Lastmod.Format "02 Jan 2006" }}</td>
+                    <td>
+                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    </td>
+                    <td>
+                        {{ $_x := (findRE "-#-(.|\n)*?-#-" .Content) }}
+                        {{ range $_x }}
+                            <li>{{ . }}
+                        {{ end }}
+                    </td>
+                </tr>
+            {{ end }}
+        </tbody>
+    </table>
+{{ end }}

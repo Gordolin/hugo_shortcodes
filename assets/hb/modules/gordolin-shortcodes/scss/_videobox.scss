@@ -1,0 +1,45 @@
+.my-videobox {
+    background: whitesmoke;
+    border-style:solid;
+    border-color: Gainsboro;
+  }
+.my-videobox-right {
+    text-align: left;
+    margin-left: 1.2em;
+    float:right;
+}
+
+.my-videobox-left {
+    text-align: left;
+    margin-right: 1.2em;
+    float:left;
+}
+
+.my-videobox-on {
+    margin-left: 1.25em;
+    margin-right: 1.25em;
+}
+
+.my-videobox-off {
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+}
+
+.my-videobox-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-videobox-col {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-videobox-text {
+    padding: 0.4em;
+    text-indent: 0px;
+    font-style: italic;
+    font-size: smaller;
+}

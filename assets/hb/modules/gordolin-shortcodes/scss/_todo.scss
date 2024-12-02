@@ -1,0 +1,8 @@
+.my-todo {
+    @extend .mx-0; //margin left and right
+    @extend .p-2; //padding
+    @extend .border; //border
+    @extend .border-primary; //border color
+    @extend .border-1; //border width
+    @extend .bg-warning; //background color
+}

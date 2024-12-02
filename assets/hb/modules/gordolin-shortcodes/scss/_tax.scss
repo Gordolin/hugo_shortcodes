@@ -1,0 +1,15 @@
+.my-tax-col {
+    column-width: 12em;
+    column-gap: 2em;
+    column-rule-style: solid;
+    column-rule-width: 1px;
+    column-rule-color: $primary;
+    color: $primary;
+}
+
+.my-tax-col ul {
+    padding-left: 1em;
+}
+.my-tax-col li {
+    margin-bottom: 0.4rem;
+}

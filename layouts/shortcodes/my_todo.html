@@ -1,0 +1,4 @@
+<!-- darf nicht zusammen mit dem Todolist - Shortcode auf der selben Seite verwendet werden, sonst entsteht eine Schleife -->
+{{ if (or hugo.IsServer .Site.Params.listTodo) }}
+    {{ if .Inner }}<p class="my-todo">-#- TODO: {{ .Inner | markdownify }} -#-</p>{{ end }}
+{{ end }} 

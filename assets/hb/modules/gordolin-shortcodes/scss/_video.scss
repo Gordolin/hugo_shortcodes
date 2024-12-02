@@ -1,0 +1,18 @@
+.my-video {
+    margin-bottom: 0.5em;
+    z-index: 100;
+    position: relative;
+  }
+.my-video-right {
+  float: right;
+  margin-left: 1em;
+}
+.my-video-left {
+  float: left;
+  margin-right: 1em;
+}
+.my-video-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

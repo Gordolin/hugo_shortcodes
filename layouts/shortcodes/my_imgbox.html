@@ -1,0 +1,22 @@
+<figure 
+class="my-box my-box-{{.Get "allign"}}" 
+style="
+    width:{{.Get "width"}};
+    border-radius:{{.Get "radius"}};
+">
+  <img 
+  src={{.Get "src"}} 
+  alt="{{.Get "title"}}" 
+  title="{{.Get "title"}}"
+  style="
+    border-radius:{{.Get "radius"}};
+    width: 100%;
+">
+  <figcaption class="my-box-text my-box-{{.Get "rc"}}">
+    {{ .Inner | markdownify }}
+  </figcaption>
+</figure>
+
+{{ if  eq (.Get "allign") "col" }}
+<hr />
+{{ end }}
