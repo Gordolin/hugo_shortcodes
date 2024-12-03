@@ -1,11 +1,17 @@
 <!-- Video mit einer Videounterschrift in einer Box -->
 
-<div class="my-videobox my-videobox-{{.Get "float"}}" style="width:{{.Get "width"}};">
-    <video controls style="width: 100%;" poster="{{.Get "poster"}}">
-        <source src={{.Get "src"}} type="video/{{.Get "videotype"}}">
+<div 
+    class="my-videobox my-videobox-{{.Get "allign"}}" 
+    style="width:{{.Get "width"}};">
+    <video controls 
+        style="width: 100%;" 
+        poster="{{.Get "poster"}}">
+        <source 
+            src={{.Get "src"}} 
+            type="video/mp4">
     </video>
     <div class="my-videobox-text">
-    {{ .Inner | markdownify }}
+        {{ .Inner | markdownify }}
     </div>
 </div>
 

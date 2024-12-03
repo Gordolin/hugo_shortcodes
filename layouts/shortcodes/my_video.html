@@ -4,9 +4,18 @@ das könnte den Style des Layouts kaputt machen
 z-index bringt das Video in den Vordergrund, damit
 es nicht von anderen Elementen überlagert wird
 -->
-<div class="my-video my-video-{{.Get "float"}}" style="width:{{.Get "width"}};">
-  <video controls style="width: 100%;" poster="{{.Get "poster"}}">
-      <source src={{.Get "src"}} type="video/{{.Get "videotype"}}">
-  </video>
+<div 
+    class="my-video my-video-{{.Get "allign"}}" 
+    style="width:{{.Get "width"}};">
+    <video controls 
+        style="width: 100%;" 
+        poster="{{.Get "poster"}}">
+    <source 
+        src={{.Get "src"}} 
+        type="video/mp4">
+    </video>
 </div>
 
+{{ if  eq (.Get "allign") "col" }}
+<hr />
+{{ end }}
