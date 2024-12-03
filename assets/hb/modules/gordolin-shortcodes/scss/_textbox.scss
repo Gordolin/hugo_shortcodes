@@ -1,0 +1,11 @@
+.my-textbox-common {
+    //common settings for textboxes
+    @extend .m-4; //margin
+}
+.my-textbox-gray {
+//textbox with background color
+    @extend .text-bg-secondary; //text background color
+    @extend .p-3; //padding
+    @extend .fs-5; //font size
+}
+//if needed add more styles
