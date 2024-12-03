@@ -2,7 +2,7 @@
 {{ if (or hugo.IsServer .Site.Params.listTodo) }}
     {{ .Scratch.Set "todos" slice }}
     {{ range .Site.RegularPages }}
-            {{ if .HasShortcode "todo" }}
+            {{ if .HasShortcode "my_todo" }}
             {{ $.Scratch.Add "todos" . }}
             {{ end }}
     {{ end }}
