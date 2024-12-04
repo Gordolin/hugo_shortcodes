@@ -1,0 +1,6 @@
+.my-card {
+    @extend .border-primary; //border color
+    @extend .rounded; //rounded corners
+    @extend .p-3; //padding
+    @extend .my-2; //margin top and bottom
+}

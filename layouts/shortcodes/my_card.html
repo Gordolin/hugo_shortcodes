@@ -1,0 +1,3 @@
+<div class="my-card  {{ .Get "color" | default "bg-transparent" }}">
+    {{ .Inner | markdownify }}
+</div>
