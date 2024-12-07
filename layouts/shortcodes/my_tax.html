@@ -1,20 +1,16 @@
 <div class="my-tax-col">
     {{ $taxName := .Get "tax" }}
-    {{ $taxonomies := dict 
-        "tags" site.Taxonomies.tags 
-        "categories" site.Taxonomies.categories 
-        "series" site.Taxonomies.series
-        "bewertung" site.Taxonomies.bewertung
-        "authors" site.Taxonomies.authors }}
     
-    {{ with index $taxonomies $taxName }}
-        {{ range .Alphabetical }}
-            <li>
-                <a href="{{ .Page.Permalink }}">{{ .Term | title }}</a>
-                ({{ .Count }})
-            </li>
-        {{ end }}
+    {{ with index site.Taxonomies $taxName }}
+        <ul>
+            {{ range .Alphabetical }}
+                <li>
+                    <a href="{{ .Page.Permalink }}">{{ .Term | title }}</a>
+                    ({{ .Count }})
+                </li>
+            {{ end }}
+        </ul>
     {{ else }}
-        <p>Taxonomie nicht gefunden.</p>
+    <p>{{ i18n "tax_not_found" }}</p>
     {{ end }}
 </div>
