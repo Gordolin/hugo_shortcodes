@@ -2,6 +2,11 @@
     //common settings for textboxes
     @extend .m-4; //margin
 }
+.my-textbox-light {
+    //common settings for textboxes
+    @extend .m-4; //margin
+    @extend .text-bg-light; //text background color
+}
 .my-textbox-gray {
 //textbox with background color
     @extend .text-bg-secondary; //text background color
