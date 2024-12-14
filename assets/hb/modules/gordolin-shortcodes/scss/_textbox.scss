@@ -7,6 +7,12 @@
     @extend .m-4; //margin
     @extend .text-bg-light; //text background color
 }
+
+.my-textbox-italic {
+    //common settings for textboxes
+    font-style: italic;
+}
+
 .my-textbox-gray {
 //textbox with background color
     @extend .text-bg-secondary; //text background color
