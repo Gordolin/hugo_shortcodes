@@ -1,0 +1,11 @@
+{{- $relativePath := .Get 0 -}}
+{{- $basePath := .Page.File.Dir -}}
+{{- $fullPath := path.Join $basePath $relativePath -}}
+{{- if (fileExists $fullPath) -}}
+{{- $fileContent := readFile $fullPath -}}
+{{- $rendered := $fileContent | markdownify -}}
+{{- $rendered | safeHTML -}}
+{{- else -}}
+    {{- $alert := printf "{{%% bs/alert style=danger %%}}Die Datei <strong>%s</strong> wurde nicht gefunden.{{%% /bs/alert %%}}" $relativePath -}}
+    {{- .Page.RenderString $alert | safeHTML -}}
+{{- end -}}
