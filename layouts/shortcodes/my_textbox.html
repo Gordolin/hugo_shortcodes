@@ -1,6 +1,7 @@
+{{- $inner := .Inner -}}
 <div class="my-textbox-common my-textbox-{{ .Get "style" }}">
-<p>
-    {{ .Inner | markdownify }}
-</p>
+  <p>
+    {{ $inner | markdownify | safeHTML }}
+  </p>
 </div>
 
