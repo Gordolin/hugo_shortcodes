@@ -1,6 +1,7 @@
 .my-textbox-common {
     //common settings for textboxes
     @extend .m-4; //margin
+    @extend .p-3; //padding
 }
 .my-textbox-light {
     //common settings for textboxes
@@ -18,5 +19,13 @@
     @extend .text-bg-secondary; //text background color
     @extend .p-3; //padding
     @extend .fs-5; //font size
+}
+
+.my-textbox-primary-light {
+    //textbox with background color
+        @extend .bg-primary-subtle; //text background color
+        @extend .border; //border
+        @extend .border-primary; //border color
+        @extend .rounded; //border radius
 }
 //if needed add more styles
