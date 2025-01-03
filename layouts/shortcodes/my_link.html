@@ -1,5 +1,9 @@
-{{ $url := .Get "url" }}
-{{ $text := .Get "text" }}
+<!-- if no text is given, the Domain of the url will be used
+if no text is given and udate is given, the Domain and udate will be used -->
+
+{{ $url := .Get "url" | default (.Page.Params.lurl) }}
+{{ $ldate := .Page.Params.ldate }}
+{{ $text := .Get "text" | default (printf "%s%s" (replaceRE "^https?://([^/]+)/.*" "$1" $url) (cond $ldate (printf ", %s" $ldate) "")) }}
 
 <a href="{{ $url }}" target="_blank" rel="noopener noreferrer">
   {{ $text | safeHTML }}
