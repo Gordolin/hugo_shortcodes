@@ -2,9 +2,17 @@
 if no text is given and udate is given, the Domain and udate will be used -->
 
 {{ $url := .Get "url" | default (.Page.Params.lurl) }}
-{{ $ldate := .Page.Params.ldate }}
-{{ $text := .Get "text" | default (printf "%s%s" (replaceRE "^https?://([^/]+)/.*" "$1" $url) (cond $ldate (printf ", %s" $ldate) "")) }}
+{{ $udate := .Get "udate" | default (.Page.Params.ldate) }}
 
-<a href="{{ $url }}" target="_blank" rel="noopener noreferrer">
+{{ if not (hasPrefix $url "http://") }}
+  {{ if not (hasPrefix $url "https://") }}
+    {{ $url = printf "https://%s" $url }}
+  {{ end }}
+{{ end }}
+
+{{ $domain := replaceRE "^https?://([^/]+)/.*" "$1" $url }}
+{{ $text := .Get "text" | default (printf "%s%s" $domain (cond $udate (printf ", %s" $udate) "")) }}
+
+<i><a href="{{ $url }}" target="_blank" rel="noopener noreferrer">
   {{ $text | safeHTML }}
-</a>
+</a></i>
