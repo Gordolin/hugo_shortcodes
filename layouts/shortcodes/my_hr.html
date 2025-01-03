@@ -1,0 +1,4 @@
+<!-- bootstrap width,color and opacity could be set via parameters  -->
+<!--width: 0-100, color: primary|secondary|success|danger|warning|info|dark, opacity: 0-100 -->
+
+<hr class="w-{{.Get "width" | default "100" }} mx-auto border-top border-{{.Get "color" | default "primary" }} opacity-{{.Get "opacity" | default "50" }}">
