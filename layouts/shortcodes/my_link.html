@@ -1,8 +1,8 @@
 <!-- if no text is given, the Domain of the url will be used
 if no text is given and udate is given, the Domain and udate will be used -->
 
-{{ $url := .Get "url" | default (.Page.Params.lurl) }}
-{{ $udate := .Get "udate" | default (.Page.Params.ldate) }}
+{{ $url := .Get "url" | default (.Page.Params.source) }}
+{{ $udate := .Get "udate" | default (.Page.Params.sdate) }}
 
 {{ if not (hasPrefix $url "http://") }}
   {{ if not (hasPrefix $url "https://") }}
