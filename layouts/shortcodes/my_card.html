@@ -1,3 +1,18 @@
-<div class="my-card  {{ .Get "color" | default "bg-transparent" }}">
+{{- $classes := slice "p-3" "my-3" -}}
+{{- if .Get "indent" -}}
+    {{- $classes = $classes | append "mx-4" -}}
+{{- end -}}
+{{- if .Get "rounded" -}}
+    {{- $classes = $classes | append "rounded" -}}
+{{- end -}}
+{{- if .Get "border" -}}
+    {{- $classes = $classes | append "border" -}}
+    {{- $borderColor := .Get "border-color" | default "primary" -}}
+    {{- $classes = $classes | append (printf "border-%s" $borderColor) -}}
+{{- end -}}
+{{- $bgColor := .Get "background" | default "light" -}}
+{{- $classes = $classes | append (printf "text-bg-%s" $bgColor) -}}
+
+<div class="{{ delimit $classes " " }}">
     {{ .Inner | markdownify }}
 </div>
