@@ -1,0 +1,37 @@
+{{- $align := .Get "align" | default "center" -}}
+{{- $width := .Get "width" | default "100%" -}}
+{{- $image := .Get "src" -}}
+
+{{- $container := slice "image-container mb-2" -}}
+{{- $caption := slice "caption" "border" "p-2" "bg-light" "text-muted" "fst-italic" -}}
+{{- $imgClass := slice "img-fluid" -}}
+
+{{- if .Get "rounded" -}}
+    {{- if .Inner -}}
+        {{- $imgClass = $imgClass | append "rounded-top" -}}
+        {{- $caption = $caption | append "rounded-bottom" -}}
+    {{- else -}}
+        {{- $imgClass = $imgClass | append "rounded" -}}  
+    {{- end -}}  
+{{- end -}}
+
+{{- if eq $align "left" -}}
+    {{- $container = $container | append "float-start me-3" -}}
+{{- else if eq $align "right" -}}
+    {{- $container = $container | append "float-end ms-3" -}}
+{{- else -}}
+    {{- $container = $container | append "mx-auto" -}}
+{{- end -}}
+
+<div class="{{ delimit $container " " }}" style="width: {{ $width }};">
+    <img src="{{ $image }}" class="{{ delimit $imgClass " " }}" alt="{{ .Inner | plainify }}">
+    {{- if .Inner -}}
+        <div class="{{ delimit $caption " " }}">
+            {{ .Inner | markdownify }}
+        </div>
+    {{- end -}}
+</div>
+
+{{- if .Get "col" -}}
+<hr class="border-top border-primary opacity-50">
+{{ end }}
