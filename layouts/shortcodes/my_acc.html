@@ -1,0 +1,13 @@
+{{- $accsum := "py-2 px-3 border-bottom border-2 rounded-2 text-bg-primary" }}
+
+{{- if .Get "simple" -}}
+    {{ $accsum = "fst-italic bg-light text-primary px-2" }}
+{{- end -}}
+
+
+<details>
+    <summary class="{{ $accsum }}">{{.Get "title"}}</summary>
+    <div class="py-2 px-3 text-body">
+    {{ .Inner | markdownify }}
+    </div>
+ </details>
