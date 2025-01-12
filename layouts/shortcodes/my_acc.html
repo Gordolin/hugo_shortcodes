@@ -1,7 +1,9 @@
 {{- $accsum := "py-2 px-3 border-bottom border-2 rounded-2 text-bg-primary" }}
 
-{{- if and (.IsSet "style") (eq (.Get "style") "simple") -}}
-    {{ $accsum = "fst-italic bg-light text-primary px-2" }}
+{{- with .Get "style" }}
+    {{- if eq . "simple" -}}
+        {{ $accsum = "fst-italic bg-light text-primary px-2" }}
+    {{- end -}}
 {{- end -}}
 
 <details>
