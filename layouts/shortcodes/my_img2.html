@@ -24,7 +24,7 @@
 {{- end -}}
 
 <div class="{{ delimit $container " " }}" style="width: {{ $width }};">
-    <img src="{{ $image }}" class="{{ delimit $imgClass " " }}" alt="{{ .Inner | plainify }}">
+    <img src="{{ $image }}" class="{{ delimit $imgClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%;">
     {{- if .Inner -}}
         <div class="{{ delimit $caption " " }}">
             {{ .Inner | markdownify }}
