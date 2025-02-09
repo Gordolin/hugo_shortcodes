@@ -1,11 +1,12 @@
 @media print {
     .print-row {
-        display: flex !important;
-        flex-direction: row !important;
+        display: table !important;  /* Tabellenlayout für exakte Spaltenbreiten */
+        width: 100% !important;
+        table-layout: fixed !important;  /* Verhindert automatische Anpassung */
     }
-    .print-2col {
-        width: 50% !important;
-        float: left !important;
-        box-sizing: border-box;
+    .print-col {
+        display: table-cell !important;  /* Spalten als Tabellenzellen */
+        width: 50% !important;  /* Erzwingt gleiche Breite */
+        vertical-align: top !important;  /* Inhalte oben ausrichten */
     }
 }
