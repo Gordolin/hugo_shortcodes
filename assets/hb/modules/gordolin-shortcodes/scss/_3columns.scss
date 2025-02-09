@@ -1,12 +1,7 @@
 @media print {
-    .print-row {
-        display: flex !important;
-        flex-direction: row !important;
-    }
-    .print-2col {
-        width: 33.3% !important;
-        float: left !important;
-        box-sizing: border-box;
+    .col-md-4 {
+        flex: 0 0 33.3% !important;
+        max-width: 33.3% !important;
     }
 }
   

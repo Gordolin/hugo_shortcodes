@@ -10,14 +10,14 @@ clearfix is used to clear the floats.
 {{- $children := split $content "--split-here--" -}}
 
 <div class="row clearfix">
-  <div class="print-3col col-md-4 py-2 px-3" style="background-color:{{.Get "col-left"}};">
+  <div class="col-md-4 py-2 px-3" style="background-color:{{.Get "col-left"}};">
     {{- if gt (len $children) 0 -}}
         {{- index $children 0 | markdownify -}}
     {{- else -}}
         <p>Fehler: Keine Spalte 1 gefunden</p>
     {{- end -}}
   </div>
-  <div class="print-3col col-md-4 py-2 px-3 border-start border-primary" style="background-color:{{.Get "col-mid"}};">
+  <div class="col-md-4 py-2 px-3 border-start border-primary" style="background-color:{{.Get "col-mid"}};">
     {{- if gt (len $children) 1 -}}
         {{- index $children 1 | markdownify -}}
     {{- else -}}
