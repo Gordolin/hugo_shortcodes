@@ -6,18 +6,29 @@ The background color of the two columns can be set using col-left, col-mid and c
 
 clearfix is used to clear the floats.
    -->
+{{- $content := chomp .Inner -}}
+{{- $children := split $content "--split-here--" -}}
 
-
-    {{- $children := split .Inner "--split-here--" -}}
-    <div class="row clearfix">
-      <div class="my-3column p-2" style="background-color:{{.Get "col-left"}};">
-        {{- index $children 0 | markdownify }}
-      </div>
-      <div class="my-3column p-2" style="background-color:{{.Get "col-mid"}};">
-        {{- index $children 1 | markdownify }}
-      </div>
-      <div class="my-3column p-2" style="background-color:{{.Get "col-right"}};">
-        {{- index $children 2 | markdownify }}</p>
-      </div>
+<div class="row clearfix">
+  <div class="print-3col col-md-4 py-2 px-3" style="background-color:{{.Get "col-left"}};">
+    {{- if gt (len $children) 0 -}}
+        {{- index $children 0 | markdownify -}}
+    {{- else -}}
+        <p>Fehler: Keine Spalte 1 gefunden</p>
+    {{- end -}}
   </div>
-
+  <div class="print-3col col-md-4 py-2 px-3 border-start border-primary" style="background-color:{{.Get "col-mid"}};">
+    {{- if gt (len $children) 1 -}}
+        {{- index $children 1 | markdownify -}}
+    {{- else -}}
+        <p>Fehler: Keine Spalte 2 gefunden</p>
+    {{- end -}}
+  </div>
+  <div class="print-3col col-md-4 py-2 px-3 border-start border-primary" style="background-color:{{.Get "col-right"}};">
+    {{- if gt (len $children) 2 -}}
+        {{- index $children 2 | markdownify -}}
+    {{- else -}}
+        <p>Fehler: Keine Spalte 3 gefunden</p>
+    {{- end -}}
+  </div>
+</div>

@@ -1,12 +1,12 @@
-    /* Create two equal columns that floats next to each other */
-   .my-3column {
-    float: left;
-    width: 33%;
-  }
-  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    .my-3column {
-      width: 100%;
+@media print {
+    .print-row {
+        display: flex !important;
+        flex-direction: row !important;
     }
-  }
+    .print-2col {
+        width: 33.3% !important;
+        float: left !important;
+        box-sizing: border-box;
+    }
+}
   
