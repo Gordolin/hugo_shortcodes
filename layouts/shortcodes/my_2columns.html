@@ -6,13 +6,23 @@ The background color of the two columns can be set using col-left and col-right.
 clearfix is used to clear the floats.
    -->
 
-{{- $children := split .Inner "--split-here--" -}}
-<div class="row clearfix">
-    <div class="col-md-6 py-2 px-3" style="background-color:{{.Get "col-left"}};">
-        {{- index $children 0 | markdownify }}
-    </div>
-    <div class="col-md-6 py-2 px-3 border-start border-primary" style="background-color:{{.Get "col-right"}};">
-        {{- index $children 1 | markdownify }}</p>
-    </div>
-</div>
+   {{- $content := chomp .Inner -}}
+   {{- $children := split $content "--split-here--" -}}
+   
+   <div class="row print-row clearfix">
+       <div class="print-2col col-md-6 py-2 px-3" style="background-color:{{ .Get "col-left" }};">
+           {{- if gt (len $children) 0 -}}
+               {{- index $children 0 | markdownify -}}
+           {{- else -}}
+               <p>Fehler: Kein Inhalt gefunden</p>
+           {{- end -}}
+       </div>
+       <div class="print-2col col-md-6 py-2 px-3 border-start border-primary" style="background-color:{{ .Get "col-right" }};">
+           {{- if gt (len $children) 1 -}}
+               {{- index $children 1 | markdownify -}}
+           {{- else -}}
+               <p>Fehler: Kein zweiter Bereich gefunden</p>
+           {{- end -}}
+       </div>
+   </div>
 

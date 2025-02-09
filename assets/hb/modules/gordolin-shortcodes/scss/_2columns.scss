@@ -1,0 +1,11 @@
+@media print {
+    .print-row {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+    .print-2col {
+        width: 50% !important;
+        float: left !important;
+        box-sizing: border-box;
+    }
+}
