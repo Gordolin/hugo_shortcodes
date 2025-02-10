@@ -8,7 +8,7 @@
 {{- end -}}
 {{- if (fileExists $fullPath) -}}
     {{- $fileContent := readFile $fullPath -}}
-    {{- $rendered := $fileContent | markdownify -}}
+    {{- $rendered := $fileContent | safeHTML -}}
     {{- $rendered | safeHTML -}}
 {{- else -}}
     {{- $alert := printf "{{%% bs/alert style=danger %%}}Die Datei <strong>%s</strong> wurde nicht gefunden.{{%% /bs/alert %%}}" $relativePath -}}
