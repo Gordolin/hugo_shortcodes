@@ -4,4 +4,9 @@
         max-width: 33.3% !important;
     }
 }
+@media (max-width: 767px) {
+    .border-md-start {
+        border-left: none !important;
+    }
+}
   

@@ -17,7 +17,7 @@ clearfix is used to clear the floats.
                <p>Fehler: Kein Inhalt gefunden</p>
            {{- end -}}
        </div>
-       <div class="col-md-6 py-2 px-3 border-start border-primary" style="background-color:{{ .Get "col-right" }};">
+       <div class="col-md-6 py-2 px-3 border-start border-primary border-md-start" style="background-color:{{ .Get "col-right" }};">
            {{- if gt (len $children) 1 -}}
                {{- index $children 1 | markdownify -}}
            {{- else -}}

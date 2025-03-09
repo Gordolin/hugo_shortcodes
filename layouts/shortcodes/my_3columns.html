@@ -17,14 +17,14 @@ clearfix is used to clear the floats.
         <p>Fehler: Keine Spalte 1 gefunden</p>
     {{- end -}}
   </div>
-  <div class="col-md-4 py-2 px-3 border-start border-primary" style="background-color:{{.Get "col-mid"}};">
+  <div class="col-md-4 py-2 px-3 border-start border-primary border-md-start" style="background-color:{{.Get "col-mid"}};">
     {{- if gt (len $children) 1 -}}
         {{- index $children 1 | markdownify -}}
     {{- else -}}
         <p>Fehler: Keine Spalte 2 gefunden</p>
     {{- end -}}
   </div>
-  <div class="print-3col col-md-4 py-2 px-3 border-start border-primary" style="background-color:{{.Get "col-right"}};">
+  <div class="print-3col col-md-4 py-2 px-3 border-start border-primary border-md-start" style="background-color:{{.Get "col-right"}};">
     {{- if gt (len $children) 2 -}}
         {{- index $children 2 | markdownify -}}
     {{- else -}}
