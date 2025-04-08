@@ -2,6 +2,7 @@
 {{- $width := .Get "width" | default "100%" -}}
 {{- $src := .Get "src" -}}
 {{- $poster := .Get "poster" -}}
+{{- $motion := .Get "motion" | default "false" | lower -}}
 
 {{- $container := slice "media-container mb-2" -}}
 {{- $caption := slice "caption" "border" "p-2" "bg-light" "text-muted" "fst-italic" -}}
@@ -26,8 +27,8 @@
 
 <div class="{{ delimit $container " " }}" style="width: {{ $width }};">
     {{- if (or (hasSuffix $src ".mp4") (hasSuffix $src ".webm") (hasSuffix $src ".mkv")) -}}
-        <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"  controls>
-            Your browser does not support the video tag.
+        <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"
+            {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
         </video>
     {{- else -}}
         <img src="{{ $src }}" class="{{ delimit $mediaClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%; display: block; margin: 0;">
