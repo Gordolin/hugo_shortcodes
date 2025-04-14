@@ -1,16 +1,36 @@
 <div class="my-tax-col">
     {{ $taxName := .Get "tax" }}
-    
+
     {{ with index site.Taxonomies $taxName }}
-        <ul>
+        <ul class="author-list">
             {{ range .Alphabetical }}
-                <li>
-                    <a href="{{ .Page.Permalink }}">{{ .Term | title }}</a>
-                    ({{ .Count }})
-                </li>
+                {{- $term := .Term -}}
+                {{- $page := .Page -}}
+
+                {{- if eq $taxName "authors" -}}
+                    {{- $authorPage := site.GetPage (printf "authors/%s" $term) -}}
+                    <li class="author-item" style="display: flex; align-items: center; gap: 0.5rem;">
+                        {{ with $authorPage.Params.images }}
+                            <img src="{{ index . 0 }}" alt="{{ $authorPage.Title }}" style="width: 20px; height: 20px; object-fit: cover; border-radius: 50%;" />
+                        {{ end }}
+                        <a href="{{ $page.Permalink }}">
+                            {{ with $authorPage }}
+                                {{ .Title }}
+                            {{ else }}
+                                {{ $term | title }}
+                            {{ end }}
+                        </a>
+                        ({{ .Count }})
+                    </li>
+                {{ else }}
+                    <li>
+                        <a href="{{ $page.Permalink }}">{{ $term | title }}</a>
+                        ({{ .Count }})
+                    </li>
+                {{ end }}
             {{ end }}
         </ul>
     {{ else }}
-    <p>{{ i18n "tax_not_found" }}</p>
+        <p>{{ i18n "tax_not_found" }}</p>
     {{ end }}
 </div>
