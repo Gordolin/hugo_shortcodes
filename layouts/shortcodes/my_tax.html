@@ -9,9 +9,9 @@
 
                 {{- if eq $taxName "authors" -}}
                     {{- $authorPage := site.GetPage (printf "authors/%s" $term) -}}
-                    <li class="author-item" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <li class="author-item d-flex align-items-center gap-2">
                         {{ with $authorPage.Params.images }}
-                            <img src="{{ index . 0 }}" alt="{{ $authorPage.Title }}" style="width: 20px; height: 20px; object-fit: cover; border-radius: 50%;" />
+                            <img src="{{ index . 0 }}" alt="{{ $authorPage.Title }}" style="width: 35px; height: 35px;" class="rounded-circle object-fit-cover" />
                         {{ end }}
                         <a href="{{ $page.Permalink }}">
                             {{ with $authorPage }}
