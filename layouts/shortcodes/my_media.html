@@ -1,46 +1,81 @@
-{{- $align := .Get "align" | default "center" -}}
-{{- $width := .Get "width" | default "100%" -}}
+{{- /* --- Initiale Parameter --- */ -}}
+{{- $id := .Get "id" -}}
 {{- $src := .Get "src" -}}
 {{- $poster := .Get "poster" -}}
-{{- $motion := .Get "motion" | default "false" | lower -}}
+{{- $motion := (.Get "motion" | default "false" | lower) -}}
+{{- $align := .Get "align" -}}
+{{- $width := .Get "width" -}}
+{{- $rounded := .Get "rounded" -}}
+{{- $col := .Get "col" -}}
 
-{{- $container := slice "media-container mb-2" -}}
+{{- /* --- Path aus Frontmatter lesen --- */ -}}
+{{- $path := .Page.Params.media.path | default "" -}}
+
+{{- /* --- Falls ID vorhanden: Bilddaten aus Frontmatter holen --- */ -}}
+{{- if $id -}}
+    {{- $matches := where .Page.Params.media.items "id" $id -}}
+    {{- $item := cond (gt (len $matches) 0) (index $matches 0) nil -}}
+  {{- if $item -}}
+    {{- $src = $src | default (printf "%s%s" $path $item.src) -}}
+    {{- $align = $align | default $item.align -}}
+    {{- $width = $width | default $item.width -}}
+    {{- $rounded = $rounded | default $item.rounded -}}
+    {{- $col = $col | default $item.col -}}
+  {{- else -}}
+    {{- /* --- Warnung ausgeben, wenn ID nicht gefunden --- */ -}}
+    <div class="alert alert-warning">
+      ⚠️ Bild mit ID <strong>{{ $id }}</strong> wurde nicht gefunden.
+    </div>
+  {{- end -}}
+{{- else if $src -}}
+  {{- $src = printf "%s%s" $path $src -}}
+{{- end -}}
+
+{{- /* --- Sicherstellen, dass Default-Werte gesetzt sind --- */ -}}
+{{- $align = $align | default "center" -}}
+{{- $width = $width | default "100%" -}}
+
+{{- /* --- CSS-Klassen vorbereiten --- */ -}}
+{{- $container := slice "media-container" "mb-2" -}}
 {{- $caption := slice "caption" "border" "p-2" "bg-light" "text-muted" "fst-italic" -}}
 {{- $mediaClass := slice "media-fluid" -}}
 
-{{- if .Get "rounded" -}}
-    {{- if .Inner -}}
-        {{- $mediaClass = $mediaClass | append "rounded-top" -}}
-        {{- $caption = $caption | append "rounded-bottom" -}}
-    {{- else -}}
-        {{- $mediaClass = $mediaClass | append "rounded" -}}  
-    {{- end -}}  
-{{- end -}}
+{{- if $rounded }}
+  {{- if .Inner }}
+    {{- $mediaClass = $mediaClass | append "rounded-top" -}}
+    {{- $caption = $caption | append "rounded-bottom" -}}
+  {{- else }}
+    {{- $mediaClass = $mediaClass | append "rounded" -}}
+  {{- end }}
+{{- end }}
 
-{{- if eq $align "left" -}}
-    {{- $container = $container | append "float-start me-3" -}}
-{{- else if eq $align "right" -}}
-    {{- $container = $container | append "float-end ms-3" -}}
-{{- else -}}
-    {{- $container = $container | append "mx-auto" -}}
-{{- end -}}
+{{- if eq $align "left" }}
+  {{- $container = $container | append "float-start me-3" -}}
+{{- else if eq $align "right" }}
+  {{- $container = $container | append "float-end ms-3" -}}
+{{- else }}
+  {{- $container = $container | append "mx-auto" -}}
+{{- end }}
 
+{{- /* --- Ausgabe starten --- */ -}}
 <div class="{{ delimit $container " " }}" style="width: {{ $width }};">
-    {{- if (or (hasSuffix $src ".mp4") (hasSuffix $src ".webm") (hasSuffix $src ".mkv")) -}}
-        <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"
-            {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
-        </video>
-    {{- else -}}
-        <img src="{{ $src }}" class="{{ delimit $mediaClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%; display: block; margin: 0;">
-    {{- end -}}
+  {{- if (or (hasSuffix $src ".mp4") (hasSuffix $src ".webm") (hasSuffix $src ".mkv")) -}}
+    <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"
+      {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
+    </video>
+  {{- else -}}
+    <img src="{{ $src }}" class="{{ delimit $mediaClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%; display: block; margin: 0;">
+  {{- end }}
 
-    {{- if .Inner -}}
-        <div class="{{ delimit $caption " " }}">
-            {{ .Inner | markdownify }}
-        </div>
-    {{- end -}}
+  {{- /* --- Bildunterschrift falls vorhanden --- */ -}}
+  {{- if .Inner }}
+    <div class="{{ delimit $caption " " }}">
+      {{ .Inner | markdownify }}
+    </div>
+  {{- end }}
 </div>
 
-{{- if .Get "col" -}}
-<hr class="border-top border-primary opacity-50">
-{{ end }}
+{{- /* --- Optionaler Trenner bei "col" --- */ -}}
+{{- if $col }}
+  <hr class="border-top border-primary opacity-50">
+{{- end }}
