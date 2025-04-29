@@ -2,45 +2,54 @@
 {{- $id := .Get "id" -}}
 {{- $src := .Get "src" -}}
 {{- $poster := .Get "poster" -}}
-{{- $motion := (.Get "motion" | default "false" | lower) -}}
+{{- $motion := (.Get "motion" | lower) -}}
 {{- $align := .Get "align" -}}
 {{- $width := .Get "width" -}}
-{{- $rounded := .Get "rounded" -}}
+{{- $rounded := (.Get "rounded" | lower) -}}
 {{- $col := .Get "col" -}}
 
-{{- /* --- Path aus Frontmatter lesen --- */ -}}
-{{- $path := .Page.Params.media.path | default "" -}}
+{{- /* --- Pfad und Default-Werte aus media-Ebene --- */ -}}
+{{- $media := .Page.Params.media -}}
+{{- $path := $media.path | default "" -}}
 
-{{- /* --- Falls ID vorhanden: Bilddaten aus Frontmatter holen --- */ -}}
+{{- $align = $align | default $media.align -}}
+{{- $width = $width | default $media.width -}}
+{{- $rounded = $rounded | default ($media.rounded | lower | default "false") -}}
+{{- $col = $col | default $media.col -}}
+{{- $motion = $motion | default ($media.motion | lower | default "false") -}}
+
+{{- /* --- Falls ID vorhanden: Bilddaten aus media.items holen --- */ -}}
 {{- if $id -}}
-    {{- $matches := where .Page.Params.media.items "id" $id -}}
-    {{- $item := cond (gt (len $matches) 0) (index $matches 0) nil -}}
+  {{- $matches := where $media.items "id" $id -}}
+  {{- $item := cond (gt (len $matches) 0) (index $matches 0) nil -}}
   {{- if $item -}}
     {{- $src = $src | default (printf "%s%s" $path $item.src) -}}
-    {{- $align = $align | default $item.align -}}
-    {{- $width = $width | default $item.width -}}
-    {{- $rounded = $rounded | default $item.rounded -}}
-    {{- $col = $col | default $item.col -}}
+    {{- $align = $item.align | default $align -}}
+    {{- $width = $item.width | default $width -}}
+    {{- $rounded = $item.rounded | default $rounded -}}
+    {{- $col = $item.col | default $col -}}
+    {{- $motion = $item.motion | lower | default $motion -}}
   {{- else -}}
     {{- /* --- Warnung ausgeben, wenn ID nicht gefunden --- */ -}}
     <div class="alert alert-warning">
       ⚠️ Bild mit ID <strong>{{ $id }}</strong> wurde nicht gefunden.
     </div>
   {{- end -}}
-{{- else if $src -}}
+  {{- else if $src -}}
   {{- $src = printf "%s%s" $path $src -}}
 {{- end -}}
 
 {{- /* --- Sicherstellen, dass Default-Werte gesetzt sind --- */ -}}
 {{- $align = $align | default "center" -}}
 {{- $width = $width | default "100%" -}}
+{{- $motion = $motion | default "false" -}}
 
 {{- /* --- CSS-Klassen vorbereiten --- */ -}}
 {{- $container := slice "media-container" "mb-2" -}}
 {{- $caption := slice "caption" "border" "p-2" "bg-light" "text-muted" "fst-italic" -}}
 {{- $mediaClass := slice "media-fluid" -}}
 
-{{- if $rounded }}
+{{- if eq (lower $rounded) "true" }}
   {{- if .Inner }}
     {{- $mediaClass = $mediaClass | append "rounded-top" -}}
     {{- $caption = $caption | append "rounded-bottom" -}}
