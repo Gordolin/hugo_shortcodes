@@ -1,6 +1,11 @@
-<div class="my-tax-col">
-    {{ $taxName := .Get "tax" }}
+{{ $taxName := .Get "tax" }}
 
+<div class="text-center mb-4">
+    {{ $count := len (index site.Taxonomies $taxName) }}
+    <h2 class="fw-bold">{{ $taxName | title }} ({{ $count }})</h2>
+    <hr style="width: 80%; margin: 0.5rem auto;" />
+</div>
+<div class="my-tax-col">
     {{ with index site.Taxonomies $taxName }}
         <ul class="author-list">
             {{ range .Alphabetical }}
