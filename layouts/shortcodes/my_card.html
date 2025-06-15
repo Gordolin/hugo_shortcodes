@@ -18,13 +18,29 @@
     {{- $classes = $classes | append (printf "border-%s" $borderColor) -}}
 {{- end -}}
 {{- $bgColor := .Get "background" | default "light" -}}
-{{- $classes = $classes | append (printf "text-bg-%s" $bgColor) -}}
 
-{{- if eq $align "left" -}}
+{{- $bgMap := dict
+    "light"     (slice "bg-body-tertiary" "text-body")
+    "secondary" (slice "bg-body-secondary" "text-body")
+    "primary"   (slice "bg-primary-subtle" "text-primary-emphasis")
+-}}
+
+{{- $mapped := index $bgMap $bgColor -}}
+
+{{- if ne $mapped nil -}}
+    {{- range $class := $mapped -}}
+        {{- $classes = $classes | append $class -}}
+    {{- end -}}
+{{- else -}}
+    {{- $classes = $classes | append (printf "text-bg-%s" $bgColor) -}}
+{{- end -}}
+
+{{- if eq $align "indent" -}}
+    {{- $classes = $classes | append "mx-4" -}}
+{{- else if eq $align "left" -}}
     {{- $container = $container | append "float-start me-3" -}}
 {{- else if eq $align "right" -}}
     {{- $container = $container | append "float-end ms-3" -}}
-    
 {{- else -}}
     {{- $container = $container | append "mx-auto" -}}
 {{- end -}}

@@ -58,6 +58,12 @@
   {{- end }}
 {{- end }}
 
+{{- $indentClass := slice -}}
+{{- if eq $align "indent" -}}
+  {{- $indentClass = $indentClass | append "mx-4" -}}
+  {{- $caption = $caption | append "mx-4" -}}
+{{- end -}}
+
 {{- if eq $align "left" }}
   {{- $container = $container | append "float-start me-3" -}}
 {{- else if eq $align "right" }}
@@ -68,15 +74,16 @@
 
 {{- /* --- Ausgabe starten --- */ -}}
 <div class="{{ delimit $container " " }}" style="width: {{ $width }};">
-  {{- if (or (hasSuffix $src ".mp4") (hasSuffix $src ".webm") (hasSuffix $src ".mkv")) -}}
-    <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"
-      {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
-    </video>
-  {{- else -}}
-    <img src="{{ $src }}" class="{{ delimit $mediaClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%; display: block; margin: 0;">
-  {{- end }}
+  <div class="{{ delimit $indentClass " " }}">
+    {{- if (or (hasSuffix $src ".mp4") (hasSuffix $src ".webm") (hasSuffix $src ".mkv")) -}}
+      <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"
+        {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
+      </video>
+    {{- else -}}
+      <img src="{{ $src }}" class="{{ delimit $mediaClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%; display: block; margin: 0;">
+    {{- end }}
+  </div>
 
-  {{- /* --- Bildunterschrift falls vorhanden --- */ -}}
   {{- if .Inner }}
     <div class="{{ delimit $caption " " }}">
       {{ .Inner | markdownify }}
