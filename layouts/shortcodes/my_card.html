@@ -4,7 +4,11 @@
 {{- $align := .Get "align" | default "center" -}}
 {{- $width := .Get "width" | default "100%" -}}
 
-
+{{- $textclass := .Get "textclass" -}}
+{{- $allowedTextClasses := slice "lead" "fs-1" "fs-2" "fs-3" "fs-4" "fs-5" "fs-6" "display-1" "display-2" "display-3" "display-4" "display-5" "display-6" -}}
+{{- if in $allowedTextClasses $textclass -}}
+    {{- $classes = $classes | append $textclass -}}
+{{- end -}}
 
 {{- if .Get "indent" -}}
     {{- $classes = $classes | append "mx-4" -}}
