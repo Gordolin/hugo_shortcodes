@@ -1,0 +1,130 @@
+.timeline-container {
+  @extend .position-relative, .mx-auto, .py-md-5;
+  width: 90%;
+
+   @include media-breakpoint-down(md) {
+    width: 100%;
+  }
+}
+
+// Die vertikale Linie – mittig auf Desktop, links auf Mobile
+.timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: $primary;
+  z-index: 3;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  @include media-breakpoint-down(md) {
+    left: 1.25rem;
+    transform: none;
+  }
+}
+
+// Timeline-Item bleibt immer relativ und sorgt für Flex-Layout
+.timeline-item {
+  @extend .d-flex, .align-items-center, .justify-content-between;
+  position: relative;
+  margin: -3rem 0;
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 2rem 0;
+  }
+}
+
+// Punkt auf der Linie – korrekt auf klein/groß
+.timeline-point {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: $primary;
+  border: 3px solid $white;
+  border-radius: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px rgba($primary, 0.4);
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+// Karten-Design
+.timeline-card {
+  @extend .bg-body-tertiary, .text-body, .border, .border-primary, .p-3;
+  position: relative;
+  width: 40%;
+  border-radius: 0.5rem;
+  z-index: 2;
+
+  @include media-breakpoint-down(md) {
+    width: 80%;
+    margin-left: 2.5rem;
+  }
+}
+
+.timeline-card.left,
+.timeline-card.right {
+  text-align: left;
+}
+
+// Jahreszahl: auf der Gegenseite der Karte, links auf Mobil
+.timeline-year-label {
+  @extend .bg-body, .text-body, .fw-bold, .px-2;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  white-space: nowrap;
+
+  &.left {
+    right: calc(50% + 20px);
+
+    @include media-breakpoint-down(md) {
+      left: 0;
+      right: auto;
+    }
+  }
+
+  &.right {
+    left: calc(50% + 20px);
+
+    @include media-breakpoint-down(md) {
+      left: 0;
+    }
+  }
+}
+
+// Verbinder von Punkt zur Karte
+.timeline-connector {
+  @extend .border-top, .border-primary;
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  width: 50%;
+  z-index: 0;
+
+  &.left {
+    right: 50%;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  &.right {
+    left: 50%;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+}

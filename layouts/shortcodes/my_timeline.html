@@ -1,0 +1,24 @@
+{{ $year := .Get "year" }}
+{{ $side := .Get "side" | default "left" }}
+
+{{- $index := .Ordinal -}}
+{{- $side := cond (mod $index 2 | eq 0) "left" "right" -}}
+
+<div class="timeline-item">
+  {{ if eq $side "left" }}
+    <div class="timeline-card left">
+      {{ .Inner | markdownify }}
+    </div>
+    <div class="timeline-point"></div>
+    <div class="timeline-connector left"></div>
+    <div class="timeline-year-label right">{{ .Get "year" }}</div>
+  {{ else }}
+    <div class="timeline-card-placeholder"></div>
+    <div class="timeline-point"></div>
+    <div class="timeline-connector right"></div>
+    <div class="timeline-year-label left">{{ .Get "year" }}</div>
+    <div class="timeline-card right">
+      {{ .Inner | markdownify }}
+    </div>
+  {{ end }}
+</div>
