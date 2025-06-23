@@ -1,8 +1,8 @@
 {{ $year := .Get "year" }}
-{{ $side := .Get "side" | default "left" }}
+{{ $paramSide := .Get "side" }}
 
-{{- $index := .Ordinal -}}
-{{- $side := cond (mod $index 2 | eq 0) "left" "right" -}}
+{{ $index := .Ordinal }}
+{{ $side := cond (ne $paramSide "") $paramSide (cond (mod $index 2 | eq 0) "left" "right") }}
 
 <div class="timeline-item">
   {{ if eq $side "left" }}
