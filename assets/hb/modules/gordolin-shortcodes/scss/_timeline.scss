@@ -2,8 +2,13 @@
   @extend .position-relative, .mx-auto, .py-md-5;
   width: 90%;
 
-   @include media-breakpoint-down(md) {
+  display: flex;            // Flex-Container
+  flex-direction: column;   // Vertikale Anordnung der Items
+  gap: 5rem;                // Abstand zwischen den Items
+
+  @include media-breakpoint-down(md) {
     width: 100%;
+    gap: 1rem;    
   }
 }
 
@@ -34,7 +39,7 @@
   @include media-breakpoint-down(md) {
     flex-direction: column;
     align-items: flex-start;
-    margin: 2rem 0;
+    margin: 0 0;
   }
 }
 
@@ -59,11 +64,13 @@
 
 // Karten-Design
 .timeline-card {
-  @extend .bg-body-tertiary, .text-body, .border, .border-primary, .p-3;
+  @extend .bg-body-tertiary, .text-body, .border, .border-primary, .py-2, .px-3;
   position: relative;
   width: 40%;
   border-radius: 0.5rem;
   z-index: 2;
+
+  min-height: 80px; // <-- Hier die Mindesthöhe
 
   @include media-breakpoint-down(md) {
     width: 80%;
