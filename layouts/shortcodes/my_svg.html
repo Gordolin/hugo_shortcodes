@@ -1,0 +1,40 @@
+{{- $relativePath := .Get "src" | default (.Get 0) -}}
+{{- $align := .Get "align" | default "center" | lower -}}
+{{- $indent := .Get "indent" | default "false" | lower -}}
+{{- $margin := .Get "margin" | default "true" | lower -}}
+
+{{- $fullPath := "" -}}
+{{- if strings.HasPrefix $relativePath "content/" -}}
+  {{- $fullPath = $relativePath -}}
+{{- else -}}
+  {{- $basePath := .Page.File.Dir -}}
+  {{- $fullPath = path.Join $basePath $relativePath -}}
+{{- end -}}
+
+{{- if fileExists $fullPath -}}
+  {{- $svg := readFile $fullPath -}}
+
+  {{- $justify := "center" -}}
+  {{- if eq $align "left" -}}
+    {{- $justify = "flex-start" -}}
+  {{- else if eq $align "right" -}}
+    {{- $justify = "flex-end" -}}
+  {{- end -}}
+
+  {{- $classes := slice "d-flex" -}}
+  {{- if eq $indent "true" -}}
+    {{- $classes = $classes | append "mx-4" -}}
+  {{- end -}}
+  {{- if ne $margin "false" -}} {{/* default: true */}}
+    {{- $classes = $classes | append "my-4" -}}
+  {{- end -}}
+
+  <div class="{{ delimit $classes " " }}" style="justify-content: {{ $justify }};">
+    <div>
+      {{ $svg | safeHTML }}
+    </div>
+  </div>
+{{- else -}}
+  {{- $alert := printf "{{%% bs/alert style=danger %%}}Die SVG-Datei <strong>%s</strong> wurde nicht gefunden.{{%% /bs/alert %%}}" $relativePath -}}
+  {{- .Page.RenderString $alert | safeHTML -}}
+{{- end -}}
