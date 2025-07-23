@@ -1,6 +1,17 @@
-{{ $htmlTable := .Inner | markdownify }}
-{{ $class := .Get 0 }}
-{{ $old := "<table>" }}
-{{ $new := printf "<table class=\"%s\">" $class }}
-{{ $htmlTable := replace $htmlTable $old $new }}
-{{ $htmlTable | safeHTML }}
+{{ $defaultClass := "table table-striped table-bordered table-hover" }}
+{{ $class := .Get "class" | default $defaultClass }}
+{{ $big := .Get "big" }}
+
+{{ if eq $big "true" }}
+<div class="table-responsive w-100">
+<table class="{{ $class }}">
+{{ .Inner | markdownify }}
+</table>
+</div>
+{{ else }}
+  {{ $htmlTable := .Inner | markdownify }}
+  {{ $old := "<table>" }}
+  {{ $new := printf "<table class=\"%s\">" $class }}
+  {{ $htmlTable = replace $htmlTable $old $new }}
+  {{ $htmlTable | safeHTML }}
+{{ end }}

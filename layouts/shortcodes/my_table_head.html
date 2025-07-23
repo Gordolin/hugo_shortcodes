@@ -1,0 +1,6 @@
+{{ $class := .Get "class" }}
+<thead{{ with $class }} class="{{ . }}"{{ end }}>
+  <tr>
+    {{ .Inner }}
+  </tr>
+</thead>

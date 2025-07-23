@@ -1,0 +1,4 @@
+{{ $class := .Get "class" }}
+<td{{ with $class }} class="{{ . }}"{{ end }}>
+  {{ .Inner | markdownify }}
+</td>
