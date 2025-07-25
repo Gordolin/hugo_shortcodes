@@ -1,0 +1,4 @@
+{{ $class := .Get "class" }}
+<tfoot{{ with $class }} class="{{ . }}"{{ end }}>
+  {{ .Inner }}
+</tfoot>

@@ -1,0 +1,4 @@
+{{ $class := .Get "class" }}
+<tbody{{ with $class }} class="{{ . }}"{{ end }}>
+  {{ .Inner }}
+</tbody>
