@@ -1,4 +1,5 @@
-{{ $class := .Get "class" }}
+{{ $defaultClass := "table-primary" }}
+{{ $class := .Get "class" | default $defaultClass }}
 <thead{{ with $class }} class="{{ . }}"{{ end }}>
   <tr>
     {{ .Inner }}

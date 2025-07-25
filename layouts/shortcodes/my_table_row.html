@@ -1,3 +1,4 @@
-<tr>
+{{ $class := .Get "class" }}
+<tr{{ with $class }} class="{{ . }}"{{ end }}>
   {{ .Inner }}
 </tr>
