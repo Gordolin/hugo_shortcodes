@@ -24,9 +24,10 @@
 {{- $bgColor := .Get "background" | default "light" -}}
 
 {{- $bgMap := dict
-    "light"     (slice "bg-body-tertiary" "text-body")
-    "secondary" (slice "bg-body-secondary" "text-body")
-    "primary"   (slice "bg-primary-subtle" "text-primary-emphasis")
+    "light"       (slice "bg-body-tertiary" "text-body")
+    "secondary"   (slice "bg-body-secondary" "text-body")
+    "primary"     (slice "bg-primary-subtle" "text-primary-emphasis")
+    "transparent" (slice "bg-transparent" "text-body")
 -}}
 
 {{- $mapped := index $bgMap $bgColor -}}
