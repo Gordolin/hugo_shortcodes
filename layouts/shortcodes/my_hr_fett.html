@@ -1,0 +1,4 @@
+{{ $class := .Get "class" | default "bg-primary w-100 mb-3" }}
+{{ $style := .Get "style" | default "height: 3px;" | safeCSS }}
+
+<div class="{{ $class }}" style="{{ $style }}"></div>
