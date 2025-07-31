@@ -1,0 +1,14 @@
+<!-- gibt die in Frontmatter gesetzen Parameter aus -->
+
+<pre>
+{{- range $k, $v := .Page.Params -}}
+{{ $k }}:
+  {{- if eq (printf "%T" $v) "time.Time" -}}
+    {{ $v.Format "2006-01-02T15:04:05" }}
+  {{- else if reflect.IsSlice $v -}}
+    {{ range $i, $e := $v }}{{ if $i }}, {{ end }}"{{ $e }}"{{ end }}
+  {{- else -}}
+    {{ $v }}
+  {{- end }}
+{{ end -}}
+</pre>
