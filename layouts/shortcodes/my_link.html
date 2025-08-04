@@ -13,4 +13,4 @@ if no text is given and udate is given, the Domain and udate will be used -->
 {{ $domain := replaceRE "^https?://([^/]+)/.*" "$1" $url }}
 {{ $text := .Get "text" | default (printf "%s%s" $domain (cond $udate (printf ", %s" $udate) "")) }}
 
-[{{ $text | safeHTML }}]({{ $url }})
+<a href="{{ $url | safeURL }}" target="_blank" rel="noopener noreferrer">{{ $text | safeHTML }}</a>
