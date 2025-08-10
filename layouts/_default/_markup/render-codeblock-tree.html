@@ -1,0 +1,11 @@
+{{- partial "shortcodes/tree.html" (dict
+  "page"         .Page
+  "attributes"   .Attributes
+  "content"      .Inner
+  "title"        .Attributes.title
+  "link"         .Attributes.link
+  "icon"         (.Attributes.icon | default "true")
+  "iconVendor"   (.Attributes.iconvendor | default "fas")
+  "iconName"     (.Attributes.iconname | default "folder-open")
+  "iconColor"    .Attributes.iconcolor
+)}}

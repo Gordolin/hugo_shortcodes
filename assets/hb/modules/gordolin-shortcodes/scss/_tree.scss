@@ -1,0 +1,67 @@
+  .list-tree {
+    padding: 8px 12px;
+    background: var(--hb-primary-bg);
+    border-radius: 0.125rem;
+}
+
+.tree-title {
+    margin-left: -4px;
+}
+
+.list-tree ul {
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.list-tree>ul {
+    padding-inline-start: 1rem;
+}
+
+.list-tree li {
+    color: var(--hb-body-color);
+    margin-bottom: 0;
+    margin-inline-end: 0;
+    margin-inline-start: 0.5rem;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-inline-end: 0.75rem;
+    padding-inline-start: 1rem;
+    padding-top: 0;
+    position: relative;
+}
+
+.list-tree>ul>li {
+    margin-inline-start: calc(-0.5rem);
+}
+
+.list-tree li::before,
+.list-tree li::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+}
+
+.list-tree li::before {
+    border-top: 2px solid var(--hb-body-color);
+    height: 0;
+    top: 0.75rem;
+    width: 0.75rem;
+}
+
+.list-tree li:after {
+    border-left: 2px solid var(--hb-body-color);
+    height: 100%;
+    top: -0.5rem;
+    width: 0;
+}
+
+.list-tree ul:last-child li:last-child:after {
+    height: 1.25rem;
+}
+
+.list-tree svg {
+    // color: var(--hb-primary);
+    margin-inline-end: 0.25rem;
+}

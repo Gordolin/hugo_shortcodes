@@ -1,0 +1,50 @@
+{{ $content := .content | .page.RenderString }}
+<div class="list-tree">
+{{- if .title }}
+<div class="tree-header">
+  {{- if .icon | default "true" | eq "true" }}
+    {{- $ctx := dict "vendor" (.iconVendor | default "fas") "name" (.iconName | default "folder-open") }}
+    {{- if .iconColor }}
+      {{- $ctx = merge $ctx (dict "color" .iconColor) }}
+    {{- end }}
+    {{ partial "icons/icon" $ctx }}
+  {{- end }}
+  <span class="tree-title">
+    {{- if .link }}
+      <a href="{{ .link | safeURL }}" class="tree-title-link">
+        {{ .title | .page.RenderString | safeHTML }}
+      </a>
+    {{- else }}
+      {{ .title | .page.RenderString | safeHTML }}
+    {{- end }}
+  </span>
+</div>
+{{- end }}
+{{- $matches := findRESubmatch `<li>([\s\S]*?)(</li>|<ul>)` $content }}
+{{- range $matches }}
+  {{- $replacement := "" }}
+  {{- $text := index . 1 }}
+  {{- $rest := index . 2 }}
+  {{- $parts := split $text "|" }}
+
+  {{- if gt (len $parts) 1 }}
+    {{- $name := trim (index $parts 0) " \t\n\r" }}
+    {{- $vendor := trim (index $parts 1) " \t\n\r" }}
+    {{- $icon := trim (index $parts 2) " \t\n\r" }}
+    {{- $color := trim (index $parts 3) " \t\n\r" }}
+
+    {{- $ctx := dict "vendor" $vendor "name" $icon }}
+    {{- if $color }}
+      {{- $ctx = merge $ctx (dict "color" $color) }}
+    {{- end }}
+
+    {{- $iconContent := partial "icons/icon" $ctx }}
+    {{- $replacement = printf `<li>%s<span>%s</span>%s` $iconContent $name $rest }}
+  {{- end }}
+
+  {{- if $replacement }}
+    {{- $content = replace $content (index . 0) $replacement }}
+  {{- end }}
+{{- end }}
+{{- $content | safeHTML -}}
+</div>
