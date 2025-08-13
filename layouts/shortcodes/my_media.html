@@ -78,6 +78,7 @@
     {{- if (or (hasSuffix $src ".mp4") (hasSuffix $src ".webm") (hasSuffix $src ".mkv")) -}}
       <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"
         {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
+        onloadeddata="if (window.msnry) msnry.layout()">
       </video>
     {{- else -}}
       <img src="{{ $src }}" class="{{ delimit $mediaClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%; display: block; margin: 0;">
