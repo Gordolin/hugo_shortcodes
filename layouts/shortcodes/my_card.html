@@ -1,5 +1,5 @@
 {{- $classes := slice "p-3" "my-3" -}}
-{{- $container := slice "textbox-container mb-2" -}}
+{{- $container := slice "card-container mb-2" -}}  {{/* Passe an, falls nötig */}}
 
 {{- $align := .Get "align" | default "center" -}}
 {{- $width := .Get "width" | default "100%" -}}
@@ -16,11 +16,22 @@
 {{- if .Get "rounded" -}}
     {{- $classes = $classes | append "rounded" -}}
 {{- end -}}
+
+{{- /* Bestehende Border-Logik */ -}}
 {{- if .Get "border" -}}
     {{- $classes = $classes | append "border" -}}
     {{- $borderColor := .Get "border-color" | default "primary" -}}
     {{- $classes = $classes | append (printf "border-%s" $borderColor) -}}
 {{- end -}}
+
+{{- $scratch := newScratch -}}
+{{- if and (ne (.Get "left-border") "") (eq (.Get "left-border") "true") -}}
+    {{- $classes = $classes | append "left-thick-border" -}}
+    {{- $color := .Get "left-border-color" | default "success" -}}
+    {{- $scratch.Set "leftInlineStyle" (printf "border-left-color:var(--hb-%s) !important" $color | safeCSS) -}}
+{{- end -}}
+{{- $leftInlineStyle := $scratch.Get "leftInlineStyle" | default "" -}}
+
 {{- $bgColor := .Get "background" | default "light" -}}
 
 {{- $bgMap := dict
@@ -51,7 +62,7 @@
 {{- end -}}
 
 <div class="{{ delimit $container " " }}" style="width: {{ $width }};">
-    <div class="{{ delimit $classes " " }}">
+    <div class="{{ delimit $classes " " }}" {{- if ne $leftInlineStyle "" }}style="{{ $leftInlineStyle }}"{{- end -}}>
         {{ .Inner | markdownify }}
     </div>
 </div>
