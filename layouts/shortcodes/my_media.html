@@ -7,6 +7,7 @@
 {{- $width := .Get "width" -}}
 {{- $rounded := (.Get "rounded" | lower) -}}
 {{- $col := .Get "col" -}}
+{{- $preload := .Get "preload" -}}
 
 {{- /* --- Pfad und Default-Werte aus media-Ebene --- */ -}}
 {{- $media := .Page.Params.media -}}
@@ -76,9 +77,15 @@
 <div class="{{ delimit $container " " }}" style="width: {{ $width }};">
   <div class="{{ delimit $indentClass " " }}">
     {{- if (or (hasSuffix $src ".mp4") (hasSuffix $src ".webm") (hasSuffix $src ".mkv")) -}}
-      <video src="{{ $src }}" class="{{ delimit $mediaClass " " }}" style="width: 100%; display: block; margin: 0;" poster="{{ $poster }}"
+      <video
+        src="{{ $src }}" 
+        class="{{ delimit $mediaClass " " }}" 
+        style="width: 100%; display: block; margin: 0;" 
+        {{- if $poster }} poster="{{ $poster }}"{{ end }}
+        {{- if $preload }} preload="{{ $preload }}"{{ end }}
         {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
-        onloadeddata="if (window.msnry) msnry.layout()">
+        onloadeddata="if (window.msnry) msnry.layout()"
+      >
       </video>
     {{- else -}}
       <img src="{{ $src }}" class="{{ delimit $mediaClass " " }}" alt="{{ .Inner | plainify }}" style="width: 100%; display: block; margin: 0;">
