@@ -81,7 +81,12 @@
         src="{{ $src }}" 
         class="{{ delimit $mediaClass " " }}" 
         style="width: 100%; display: block; margin: 0;" 
-        {{- if $poster }} poster="{{ $poster }}"{{ end }}
+        {{- if $poster -}}
+        {{- /* Nur prefixen, wenn poster nicht mit "http" oder "/" beginnt */ -}}
+            {{- if and (not (or (hasPrefix $poster "http") (hasPrefix $poster "/"))) (ne $path "") -}}
+                {{- $poster = printf "%s%s" $path $poster -}}
+            {{- end -}}
+        {{- end -}}
         {{- if $preload }} preload="{{ $preload }}"{{ end }}
         {{ if eq $motion "true" }} controls autoplay muted loop {{ else }} controls {{ end }}>
         onloadeddata="if (window.msnry) msnry.layout()"
