@@ -85,6 +85,7 @@
         {{- /* Nur prefixen, wenn poster nicht mit "http" oder "/" beginnt */ -}}
             {{- if and (not (or (hasPrefix $poster "http") (hasPrefix $poster "/"))) (ne $path "") -}}
                 {{- $poster = printf "%s%s" $path $poster -}}
+                poster="{{ $poster }}"
             {{- end -}}
         {{- end -}}
         {{- if $preload }} preload="{{ $preload }}"{{ end }}
