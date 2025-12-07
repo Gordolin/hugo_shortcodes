@@ -23,6 +23,11 @@
 {{- $width = $width | default "100%" -}}
 {{- $motion = $motion | default "false" -}}
 
+{{- /* --- src und poster mit Pfad kombinieren, wenn relativ und Pfad existiert --- */ -}}
+{{- if and $src (not (hasPrefix $src "http")) (not (hasPrefix $src "/")) (ne $path "") -}}
+  {{- $src = printf "%s%s" $path $src -}}
+{{- end -}}
+
 {{- /* --- CSS-Klassen vorbereiten --- */ -}}
 {{- $container := slice "media-container" "mb-2" -}}
 {{- $caption := slice "caption" "border" "p-2" "bg-body-secondary" "text-body-secondary" "fst-italic" -}}
