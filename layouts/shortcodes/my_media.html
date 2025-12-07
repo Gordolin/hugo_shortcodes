@@ -1,5 +1,4 @@
 {{- /* --- Initiale Parameter --- */ -}}
-{{- $id := .Get "id" -}}
 {{- $src := .Get "src" -}}
 {{- $poster := .Get "poster" -}}
 {{- $motion := (.Get "motion" | lower) -}}
@@ -18,27 +17,6 @@
 {{- $rounded = $rounded | default ($media.rounded | lower | default "false") -}}
 {{- $col = $col | default $media.col -}}
 {{- $motion = $motion | default ($media.motion | lower | default "false") -}}
-
-{{- /* --- Falls ID vorhanden: Bilddaten aus media.items holen --- */ -}}
-{{- if $id -}}
-  {{- $matches := where $media.items "id" $id -}}
-  {{- $item := cond (gt (len $matches) 0) (index $matches 0) nil -}}
-  {{- if $item -}}
-    {{- $src = $src | default (printf "%s%s" $path $item.src) -}}
-    {{- $align = $item.align | default $align -}}
-    {{- $width = $item.width | default $width -}}
-    {{- $rounded = $item.rounded | default $rounded -}}
-    {{- $col = $item.col | default $col -}}
-    {{- $motion = $item.motion | lower | default $motion -}}
-  {{- else -}}
-    {{- /* --- Warnung ausgeben, wenn ID nicht gefunden --- */ -}}
-    <div class="alert alert-warning">
-      ⚠️ Bild mit ID <strong>{{ $id }}</strong> wurde nicht gefunden.
-    </div>
-  {{- end -}}
-  {{- else if $src -}}
-  {{- $src = printf "%s%s" $path $src -}}
-{{- end -}}
 
 {{- /* --- Sicherstellen, dass Default-Werte gesetzt sind --- */ -}}
 {{- $align = $align | default "center" -}}
